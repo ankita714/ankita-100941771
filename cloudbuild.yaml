@@ -1,7 +1,7 @@
 steps:
   # Step 1: Build Docker Image
   - name: 'gcr.io/cloud-builders/docker'
-    args: 
+    args:
       - 'build'
       - '-t'
       - 'us-central1-docker.pkg.dev/ankita-sem2-project/ankita-100941771/app:$COMMIT_SHA'
@@ -9,14 +9,28 @@ steps:
 
   # Step 2: Push Docker Image to Artifact Registry
   - name: 'gcr.io/cloud-builders/docker'
-    args: 
+    args:
       - 'push'
       - 'us-central1-docker.pkg.dev/ankita-sem2-project/ankita-100941771/app:$COMMIT_SHA'
+
+  # Step 3: Deploy to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: 'gcloud'
+    args:
+      - 'run'
+      - 'deploy'
+      - 'ankita-cloud-run-service'   # Replace with your service name
+      - '--image'
+      - 'us-central1-docker.pkg.dev/ankita-sem2-project/ankita-100941771/app:$COMMIT_SHA'
+      - '--region'
+      - 'us-central1'
+      - '--platform'
+      - 'managed'
+      - '--allow-unauthenticated'
 
 options:
   defaultLogsBucketBehavior: REGIONAL_USER_OWNED_BUCKET
 
-# This tells Cloud Build where to find the image
 images:
   - 'us-central1-docker.pkg.dev/ankita-sem2-project/ankita-100941771/app:$COMMIT_SHA'
 

@@ -2,15 +2,16 @@ steps:
 - name: 'gcr.io/cloud-builders/docker'
   args: ['build', '-t', 'us-central1-docker.pkg.dev/ankita-sem2-project/ankita-100941771/$COMMIT_SHA', '.']
 - name: 'gcr.io/cloud-builders/docker'
+  entrypoint: 'docker'  
   args: ['push', 'us-central1-docker.pkg.dev/ankita-sem2-project/ankita-100941771/$COMMIT_SHA']
 options:
   defaultLogsBucketBehavior: REGIONAL_USER_OWNED_BUCKET
 triggers:
-- name: dc-ankita-100941771
+- name: dc-ankita-100941771  
   github:
     push:
-      branch: main # Or your branch name
+      branch: main 
   filename: cloudbuild.yaml
   approval:
     requiredApprovers:
-      - 'ankitaktl5@gmail.com'
+      - 'ankitaktl5@gmail.com'  

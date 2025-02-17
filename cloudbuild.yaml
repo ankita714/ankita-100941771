@@ -1,8 +1,8 @@
 steps:
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'us-central1-docker.pkg.dev/719998335017/ankita-100941771/$COMMIT_SHA', '.']
+  args: ['build', '-t', 'us-central1-docker.pkg.dev/ankita-sem2-project/ankita-100941771/$COMMIT_SHA', '.']
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'us-central1-docker.pkg.dev/719998335017/ankita-100941771/$COMMIT_SHA']
+  args: ['push', 'us-central1-docker.pkg.dev/ankita-sem2-project/ankita-100941771/$COMMIT_SHA']
 options:
   defaultLogsBucketBehavior: REGIONAL_USER_OWNED_BUCKET
 triggers:
